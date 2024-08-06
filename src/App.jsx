@@ -7,10 +7,6 @@ import {
 
 import ArticleCategoryPage from "./pages/ArticleCategoryPage";
 import MainLayout from "./layouts/MainLayout";
-
-// import JobsPage from "./pages/JobsPage";
-// import JobPage, { jobLoader } from "./pages/JobPage";
-
 import NotFoundPage from "./pages/NotFoundPage";
 import ArticlePage from "./pages/ArticlePage";
 
@@ -20,10 +16,7 @@ const App = () => {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<ArticleCategoryPage />} />
 
-        <Route
-          path="/articles/:category/:pagenumber?"
-          element={<ArticleCategoryPage />}
-        />
+        <Route path="/articles/:category" element={<ArticleCategoryPage />} />
 
         <Route path="/article/:articleid" element={<ArticlePage />} />
 

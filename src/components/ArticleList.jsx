@@ -3,7 +3,7 @@ import ArticleCard from "./ArticleCard";
 import Spinner from "./Spinner";
 import axios from "axios";
 
-const ArticleList = ({ apiUrl, header, articleList }) => {
+const ArticleList = ({ apiUrl, header }) => {
   const [arricles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
