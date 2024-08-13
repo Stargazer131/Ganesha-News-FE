@@ -89,7 +89,7 @@ const ArticlePage = () => {
   };
 
   return (
-    <section className="bg-indigo-50">
+    <article className="bg-indigo-50">
       <div className="container max-w-6xl m-auto">
         {loading ? (
           <Spinner loading={loading} />
@@ -107,20 +107,26 @@ const ArticlePage = () => {
                   {formatDate(article.published_date)}
                 </p>
               </div>
-              <h2 className="mb-6 text-4xl font-semibold text-center">
+              <h1 className="mb-6 text-4xl font-semibold text-center">
                 {article.title}
-              </h2>
-              <p className="mb-4 text-lg">{article.description}</p>
+              </h1>
+              <p className="mb-4 text-lg italic text-gray-500">
+                {article.description}
+              </p>
               {article.content.map((item, index) => (
                 <p key={index}>{formatContent(item)}</p>
               ))}
             </div>
 
-            <ArticleList apiUrl={"/api/articles"} header={"Tin liên quan"} />
+            <ArticleList
+              apiUrl={"/api/articles"}
+              header={"Tin liên quan"}
+              hideDescription={true}
+            />
           </>
         )}
       </div>
-    </section>
+    </article>
   );
 };
 export default ArticlePage;

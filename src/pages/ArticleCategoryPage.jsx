@@ -35,7 +35,6 @@ const ArticleCategoryPage = () => {
       <Pagination
         key={category}
         handlePageClick={handlePageClick}
-        category={category}
         maxitem={20}
       />
     </>

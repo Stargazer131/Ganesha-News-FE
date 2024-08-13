@@ -3,7 +3,7 @@ import ArticleCard from "./ArticleCard";
 import Spinner from "./Spinner";
 import axios from "axios";
 
-const ArticleList = ({ apiUrl, header }) => {
+const ArticleList = ({ apiUrl, header, hideDescription = false }) => {
   const [arricles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,7 +37,11 @@ const ArticleList = ({ apiUrl, header }) => {
         ) : (
           <div className={`grid grid-cols-1 gap-10 md:grid-cols-4`}>
             {arricles.map((article) => (
-              <ArticleCard key={article.id} article={article} />
+              <ArticleCard
+                key={article.id}
+                article={article}
+                hideDescription={hideDescription}
+              />
             ))}
           </div>
         )}
