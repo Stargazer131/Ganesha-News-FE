@@ -3,14 +3,23 @@ import ArticleCard from "./ArticleCard";
 import Spinner from "./Spinner";
 import axios from "axios";
 
-const ArticleList = ({ apiUrl, header, hideDescription = false }) => {
-  const [arricles, setArticles] = useState([]);
+const ArticleList = ({
+  category,
+  page,
+  header,
+  articleList,
+  hideDescription = false,
+}) => {
+  const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchArticles = async () => {
+      const url = "/api/articles/";
+      const params = { category, page };
+
       axios
-        .get(apiUrl)
+        .get(url, { params })
         .then((res) => {
           const data = res.data;
           setArticles(data);
@@ -23,7 +32,11 @@ const ArticleList = ({ apiUrl, header, hideDescription = false }) => {
         });
     };
 
-    fetchArticles();
+    if (articleList == undefined) {
+      fetchArticles();
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   return (
@@ -36,13 +49,21 @@ const ArticleList = ({ apiUrl, header, hideDescription = false }) => {
           <Spinner loading={loading} />
         ) : (
           <div className={`grid grid-cols-1 gap-10 md:grid-cols-4`}>
-            {arricles.map((article) => (
-              <ArticleCard
-                key={article.id}
-                article={article}
-                hideDescription={hideDescription}
-              />
-            ))}
+            {articleList != undefined
+              ? articleList.map((article) => (
+                  <ArticleCard
+                    key={article._id}
+                    article={article}
+                    hideDescription={hideDescription}
+                  />
+                ))
+              : articles.map((article) => (
+                  <ArticleCard
+                    key={article._id}
+                    article={article}
+                    hideDescription={hideDescription}
+                  />
+                ))}
           </div>
         )}
       </div>

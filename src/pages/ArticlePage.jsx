@@ -9,17 +9,19 @@ import axios from "axios";
 const ArticlePage = () => {
   const { articleid } = useParams();
   const [article, setArticle] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchArticles = async () => {
       setLoading(true);
-      const apiUrl = `/api/articles/${articleid}`;
+      const url = `/api/article/${articleid}`;
       axios
-        .get(apiUrl)
+        .get(url)
         .then((res) => {
           const data = res.data;
-          setArticle(data);
+          setArticle(data["article"]);
+          setRecommendations(data["recommendations"]);
         })
         .catch((error) => {
           console.log("Error fetching data", error);
@@ -65,8 +67,33 @@ const ArticlePage = () => {
     return `${dayInWeek}, ${day}/${month}/${year}, ${hours}:${minutes}`;
   };
 
-  const formatContent = (item = "") => {
+  const formatContent = (item) => {
     const prefix = "IMAGECONTENT:";
+
+    // image grid
+    if (Array.isArray(item)) {
+      return (
+        <div className="grid grid-cols-3 gap-4">
+          {item.map((data, index) => {
+            const [src, position] = data.slice(prefix.length).split(";;");
+            const [row, column] = position.split(",");
+
+            return (
+              <div
+                key={index}
+                className={`row-start-${row} col-start-${column} border border-gray-300 p-2`}
+              >
+                <img
+                  src={src}
+                  alt={`Image ${index + 1}`}
+                  className="w-full h-auto"
+                />
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
 
     // image content
     if (item.startsWith(prefix)) {
@@ -114,12 +141,12 @@ const ArticlePage = () => {
                 {article.description}
               </p>
               {article.content.map((item, index) => (
-                <p key={index}>{formatContent(item)}</p>
+                <div key={index}>{formatContent(item)}</div>
               ))}
             </div>
 
             <ArticleList
-              apiUrl={"/api/articles"}
+              articleList={recommendations}
               header={"Tin liên quan"}
               hideDescription={true}
             />

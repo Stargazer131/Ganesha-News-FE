@@ -8,7 +8,7 @@ const ArticleCategoryPage = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const { category } = useParams();
 
-  let header = "Mới nhất";
+  let header = `Mới nhất - Page ${pageNumber}`;
   if (category != undefined) {
     if (category in categoryMap) {
       header = `${categoryMap[category]} - Page ${pageNumber}`;
@@ -28,12 +28,13 @@ const ArticleCategoryPage = () => {
   return (
     <>
       <ArticleList
-        key={`${category}-${pageNumber}`}
-        apiUrl={"/api/articles"}
+        key={`${String(category)}-${pageNumber}`}
+        category={category}
+        page={pageNumber}
         header={header}
       />
       <Pagination
-        key={category}
+        key={String(category)}
         handlePageClick={handlePageClick}
         maxitem={20}
       />
