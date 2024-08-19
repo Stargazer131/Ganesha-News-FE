@@ -28,15 +28,15 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-10 overflow-x-auto border-b bg-violet-600 border-violet-400">
-      <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex flex-wrap items-center justify-between py-3">
+      <div className="px-2 mx-auto sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-center justify-between py-1">
           <div className="flex items-center justify-center flex-1 md:items-stretch md:justify-start">
             <NavLink
               id="nav_logo"
-              className="flex items-center flex-shrink-0 mr-4"
+              className="flex items-center flex-shrink-0 ml-4"
               to="/"
             >
-              <img className="w-auto h-10" src={logo} alt="Ganesha News" />
+              <img className="w-auto h-14" src={logo} alt="Ganesha News" />
               <span className="hidden ml-2 text-2xl font-bold text-white md:block">
                 Ganesha News
               </span>

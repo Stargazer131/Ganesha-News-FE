@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { categoryMap } from "../components/Navbar";
@@ -7,6 +7,7 @@ import ArticleList from "../components/ArticleList";
 import axios from "axios";
 
 const ArticlePage = () => {
+  const navigate = useNavigate();
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
@@ -25,6 +26,11 @@ const ArticlePage = () => {
         })
         .catch((error) => {
           console.log("Error fetching data", error);
+          if (error.response.status == 404) {
+            navigate("/error404");
+          } else {
+            navigate("/error500");
+          }
         })
         .finally(() => {
           setLoading(false);

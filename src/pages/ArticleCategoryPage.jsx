@@ -4,6 +4,7 @@ import Pagination from "../components/Pagination";
 import { useState, useEffect } from "react";
 import Spinner from "../components/Spinner";
 import axios from "axios";
+import { categoryMap } from "../components/Navbar";
 
 const ArticleCategoryPage = () => {
   const navigate = useNavigate();
@@ -13,6 +14,10 @@ const ArticleCategoryPage = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
+      if (!(category in categoryMap) || Number.isNaN(parseInt(pageNumber))) {
+        navigate("/error404");
+      }
+
       const url = "/api/articles/";
       const params = { category, "page": pageNumber };
 
@@ -23,7 +28,8 @@ const ArticleCategoryPage = () => {
           setArticles(data);
         })
         .catch((error) => {
-          console.log("Error fetching data", error);
+          console.log("Error fetching data:", error);
+          navigate("/error500");
         })
         .finally(() => {
           setLoading(false);

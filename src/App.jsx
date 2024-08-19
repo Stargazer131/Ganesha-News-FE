@@ -8,6 +8,7 @@ import {
 import ArticleCategoryPage from "./pages/ArticleCategoryPage";
 import MainLayout from "./layouts/MainLayout";
 import NotFoundPage from "./pages/NotFoundPage";
+import ServerErrorPage from "./pages/ServerErrorPage";
 import ArticlePage from "./pages/ArticlePage";
 import HomePage from "./pages/HomePage";
 
@@ -25,6 +26,8 @@ const App = () => {
         <Route path="/article/:articleId" element={<ArticlePage />} />
 
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/error404" element={<NotFoundPage />} />
+        <Route path="/error500" element={<ServerErrorPage />} />
       </Route>
     )
   );
