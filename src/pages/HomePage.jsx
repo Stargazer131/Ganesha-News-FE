@@ -10,9 +10,10 @@ const HomePage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       const url = "/api/articles/";
+      const params = { "limit": 30 };
 
       axios
-        .get(url)
+        .get(url, { params })
         .then((res) => {
           const data = res.data;
           setArticles(data);
@@ -34,7 +35,12 @@ const HomePage = () => {
       {loading ? (
         <Spinner loading={loading} />
       ) : (
-        <ArticleList articles={articles} header={"Tin mới nhất"} />
+        <ArticleList
+          verticalElement={false}
+          articles={articles}
+          header={"Tin mới nhất"}
+          colNumber={2}
+        />
       )}
     </>
   );

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { FaHome, FaSearch } from "react-icons/fa";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/ganesha.png";
 
 const categoryMap = {
   "thoi-su": "Thời sự",
@@ -27,9 +27,9 @@ const Navbar = () => {
     }`;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-10 border-b bg-violet-600 border-violet-400">
+    <nav className="fixed top-0 left-0 right-0 z-10 overflow-x-auto border-b bg-violet-600 border-violet-400">
       <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex flex-wrap items-center justify-between py-3">
           <div className="flex items-center justify-center flex-1 md:items-stretch md:justify-start">
             <NavLink
               id="nav_logo"
@@ -41,8 +41,8 @@ const Navbar = () => {
                 Ganesha News
               </span>
             </NavLink>
-            <div className="flex items-center md:ml-auto">
-              <div className="flex space-x-2">
+            <div className="flex flex-wrap items-center md:ml-auto">
+              <div className="flex flex-wrap space-x-2">
                 <NavLink key={"home"} to="/" className={linkClassIcon}>
                   <FaHome />
                 </NavLink>
@@ -70,4 +70,5 @@ const Navbar = () => {
     </nav>
   );
 };
+
 export { Navbar as default, categoryMap };

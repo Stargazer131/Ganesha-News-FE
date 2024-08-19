@@ -6,8 +6,8 @@ import Spinner from "../components/Spinner";
 import axios from "axios";
 
 const ArticleCategoryPage = () => {
-  const { category, pageNumber = "1" } = useParams();
   const navigate = useNavigate();
+  const { category, pageNumber = "1" } = useParams();
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
 
@@ -43,7 +43,12 @@ const ArticleCategoryPage = () => {
       {loading ? (
         <Spinner loading={loading} />
       ) : (
-        <ArticleList articles={articles} key={`${category}-${pageNumber}`} />
+        <ArticleList
+          key={`${category}-${pageNumber}`}
+          verticalElement={false}
+          articles={articles}
+          colNumber={2}
+        />
       )}
       <Pagination
         key={String(category)}

@@ -123,7 +123,7 @@ const ArticlePage = () => {
         ) : (
           <>
             <div className="px-6 py-8 m-4 mb-4 bg-white border rounded-md shadow-md md:m-0">
-              <div className="flex justify-between mb-3">
+              <div className="flex justify-between mb-6">
                 <Link
                   className="text-blue-600"
                   to={`/articles/${article.category}`}
