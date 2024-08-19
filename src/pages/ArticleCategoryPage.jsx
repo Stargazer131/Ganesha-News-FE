@@ -1,38 +1,50 @@
 import ArticleList from "../components/ArticleList";
-import { categoryMap } from "../components/Navbar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import { useState, useEffect } from "react";
+import Spinner from "../components/Spinner";
+import axios from "axios";
 
 const ArticleCategoryPage = () => {
-  const [pageNumber, setPageNumber] = useState(1);
-  const { category } = useParams();
-
-  let header = `Mới nhất - Page ${pageNumber}`;
-  if (category != undefined) {
-    if (category in categoryMap) {
-      header = `${categoryMap[category]} - Page ${pageNumber}`;
-    } else {
-      // TODO: Invalid category
-    }
-  }
+  const { category, pageNumber = "1" } = useParams();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    setPageNumber(1);
-  }, [category]);
+    const fetchArticles = async () => {
+      const url = "/api/articles/";
+      const params = { category, "page": pageNumber };
+
+      axios
+        .get(url, { params })
+        .then((res) => {
+          const data = res.data;
+          setArticles(data);
+        })
+        .catch((error) => {
+          console.log("Error fetching data", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+
+    fetchArticles();
+  }, [category, pageNumber]);
 
   const handlePageClick = (event) => {
-    setPageNumber(event.selected + 1);
+    navigate(`/articles/${category}/${event.selected + 1}`);
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   return (
     <>
-      <ArticleList
-        key={`${String(category)}-${pageNumber}`}
-        category={category}
-        page={pageNumber}
-        header={header}
-      />
+      {loading ? (
+        <Spinner loading={loading} />
+      ) : (
+        <ArticleList articles={articles} key={`${category}-${pageNumber}`} />
+      )}
       <Pagination
         key={String(category)}
         handlePageClick={handlePageClick}

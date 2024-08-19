@@ -7,7 +7,7 @@ import ArticleList from "../components/ArticleList";
 import axios from "axios";
 
 const ArticlePage = () => {
-  const { articleid } = useParams();
+  const { articleId } = useParams();
   const [article, setArticle] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ const ArticlePage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       setLoading(true);
-      const url = `/api/article/${articleid}`;
+      const url = `/api/article/${articleId}`;
       axios
         .get(url)
         .then((res) => {
@@ -32,7 +32,7 @@ const ArticlePage = () => {
     };
 
     fetchArticles();
-  }, [articleid]);
+  }, [articleId]);
 
   const formatDate = (dateString) => {
     const convert = (dayIndex) => {
@@ -58,7 +58,7 @@ const ArticlePage = () => {
 
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -146,7 +146,7 @@ const ArticlePage = () => {
             </div>
 
             <ArticleList
-              articleList={recommendations}
+              articles={recommendations}
               header={"Tin liên quan"}
               hideDescription={true}
             />
