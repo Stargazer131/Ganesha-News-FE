@@ -33,7 +33,7 @@ const Navbar = () => {
           <div className="flex items-center justify-center flex-1 md:items-stretch md:justify-start">
             <NavLink
               id="nav_logo"
-              className="flex items-center flex-shrink-0 ml-4"
+              className="flex items-center flex-shrink-0 mr-4"
               to="/"
             >
               <img className="w-auto h-14" src={logo} alt="Ganesha News" />
@@ -55,11 +55,7 @@ const Navbar = () => {
                     {value}
                   </NavLink>
                 ))}
-                <NavLink
-                  key={"search"}
-                  to="/tim-kiem"
-                  className={linkClassIcon}
-                >
+                <NavLink key={"search"} to="/search" className={linkClassIcon}>
                   <FaSearch />
                 </NavLink>
               </div>

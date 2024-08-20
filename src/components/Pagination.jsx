@@ -14,7 +14,7 @@ const Pagination = ({ handlePageClick, maxitem }) => {
       pageCount={maxitem}
       previousLabel="<"
       renderOnZeroPageCount={null}
-      containerClassName="flex gap-2 items-center justify-center mt-4" // Add container styles
+      containerClassName="flex gap-2 items-center justify-center mt-4"
       pageLinkClassName={itemStyle}
       activeLinkClassName={activeItemStyle}
       previousLinkClassName={itemStyle}

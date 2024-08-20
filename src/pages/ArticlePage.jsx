@@ -16,7 +16,7 @@ const ArticlePage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       setLoading(true);
-      const url = `/api/article/${articleId}`;
+      const url = `/api/articles/${articleId}`;
       axios
         .get(url)
         .then((res) => {
@@ -131,7 +131,7 @@ const ArticlePage = () => {
             <div className="px-6 py-8 m-4 mb-4 bg-white border rounded-md shadow-md md:m-0">
               <div className="flex justify-between mb-6">
                 <Link
-                  className="text-blue-600"
+                  className="text-violet-600 hover:underline"
                   to={`/articles/${article.category}`}
                 >
                   {categoryMap[article.category]}

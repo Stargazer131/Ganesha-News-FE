@@ -7,7 +7,7 @@ const MainLayout = () => {
   return (
     <>
       <Navbar />
-      <div className="py-10">
+      <div className="py-10 bg-blue-50">
         <Outlet />
       </div>
       <ToastContainer />
