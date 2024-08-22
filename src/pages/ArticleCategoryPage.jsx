@@ -60,6 +60,7 @@ const ArticleCategoryPage = () => {
         key={String(category)}
         handlePageClick={handlePageClick}
         maxitem={20}
+        forcePage={parseInt(pageNumber - 1)}
       />
     </>
   );
