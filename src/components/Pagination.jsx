@@ -10,9 +10,9 @@ const Pagination = ({ handlePageClick, maxitem }) => {
     <ReactPaginate
       breakLabel="..."
       nextLabel=">"
+      previousLabel="<"
       onPageChange={handlePageClick}
       pageCount={maxitem}
-      previousLabel="<"
       renderOnZeroPageCount={null}
       containerClassName="flex gap-2 items-center justify-center mt-4"
       pageLinkClassName={itemStyle}

@@ -6,7 +6,7 @@ const HorizontalShortArticle = ({ article }) => {
       <Link to={`/article/${article._id}`} className="flex w-full">
         <img src={article.thumbnail} className="w-1/3 my-2 ml-2" />
         <div className="flex flex-col w-2/3 p-4">
-          <h3 className="text-xl font-bold text-left">{article.title}</h3>
+          <h1 className="text-xl font-bold text-left">{article.title}</h1>
           <p className="mt-2 text-left">{article.description}</p>
         </div>
       </Link>

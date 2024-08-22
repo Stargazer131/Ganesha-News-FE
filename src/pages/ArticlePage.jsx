@@ -5,6 +5,8 @@ import Spinner from "../components/Spinner";
 import { categoryMap } from "../components/Navbar";
 import ArticleList from "../components/ArticleList";
 import axios from "axios";
+import ImageCaption from "../components/ImageCaption";
+import ImageGrid from "../components/ImageGrid";
 
 const ArticlePage = () => {
   const navigate = useNavigate();
@@ -73,49 +75,16 @@ const ArticlePage = () => {
     return `${dayInWeek}, ${day}/${month}/${year}, ${hours}:${minutes}`;
   };
 
-  const formatContent = (item) => {
+  const formatContent = (item, index) => {
     const prefix = "IMAGECONTENT:";
 
-    // image grid
     if (Array.isArray(item)) {
-      return (
-        <div className="grid grid-cols-3 gap-4">
-          {item.map((data, index) => {
-            const [src, position] = data.slice(prefix.length).split(";;");
-            const [row, column] = position.split(",");
-
-            return (
-              <div
-                key={index}
-                className={`row-start-${row} col-start-${column} border border-gray-300 p-2`}
-              >
-                <img
-                  src={src}
-                  alt={`Image ${index + 1}`}
-                  className="w-full h-auto"
-                />
-              </div>
-            );
-          })}
-        </div>
-      );
+      return <ImageGrid imageList={item} />;
     }
 
-    // image content
     if (item.startsWith(prefix)) {
       const [imgUrl, caption] = item.slice(prefix.length).split(";;");
-      return (
-        <div className="flex flex-col items-center mb-4">
-          <img
-            src={imgUrl}
-            alt={caption || "Image"}
-            className="h-auto max-w-full mb-2"
-          />
-          {caption && (
-            <p className="text-sm text-center text-gray-600">{caption}</p>
-          )}
-        </div>
-      );
+      return <ImageCaption imgUrl={imgUrl} caption={caption} />;
     } else {
       return <p className="mb-4 text-lg">{item}</p>;
     }
@@ -155,6 +124,7 @@ const ArticlePage = () => {
               articles={recommendations}
               header={"Tin liên quan"}
               hideDescription={true}
+              colNumber={5}
             />
           </>
         )}

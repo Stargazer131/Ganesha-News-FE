@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaSearch, FaInfoCircle, FaTimes } from "react-icons/fa";
 import ArticleList from "../components/ArticleList";
+import Spinner from "../components/Spinner";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -8,6 +9,7 @@ const SearchPage = () => {
   const [keyword, setKeyword] = useState("");
   const [articles, setArticles] = useState([]);
   const [showInfoPanel, setShowInfoPanel] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleInfoClick = () => {
     setShowInfoPanel(true);
@@ -18,25 +20,31 @@ const SearchPage = () => {
   };
 
   const handleSearch = () => {
-    if (keyword == "") {
-      toast.error("Không được để trống");
+    if (keyword.trim() == "") {
+      toast.error("Không được để trống!");
       return;
     }
 
+    setLoading(true);
     const url = `/api/search/`;
-    const params = { keyword };
+    const params = { keyword, "limit": 50 };
 
     axios
       .get(url, { params })
       .then((res) => {
         const data = res.data;
+        if (data.length == 0) {
+          toast.success("Không tìm thấy kết quả nào!");
+        }
         setArticles(data);
       })
       .catch((error) => {
         console.log("Error fetching data", error);
         navigate("/error500");
       })
-      .finally(() => {});
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -53,7 +61,7 @@ const SearchPage = () => {
         <input
           type="text"
           value={keyword}
-          onChange={(e) => setKeyword(e.target.value.trim())}
+          onChange={(e) => setKeyword(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-violet-500"
           placeholder="Từ khóa ..."
         />
@@ -65,13 +73,16 @@ const SearchPage = () => {
         </button>
       </div>
 
-      {articles.length > 0 && (
-        <ArticleList
-          articles={articles}
-          header={`Tìm thấy ${articles.length} kết quả`}
-          colNumber={1}
-          verticalElement={false}
-        />
+      {loading ? (
+        <Spinner loading={loading} />
+      ) : (
+        articles.length > 0 && (
+          <ArticleList
+            articles={articles}
+            header={`Tìm thấy ${articles.length} kết quả`}
+            verticalElement={false}
+          />
+        )
       )}
 
       {showInfoPanel && (
@@ -96,6 +107,10 @@ const SearchPage = () => {
             <p className="text-lg text-left">
               Từ khóa tìm kiếm cần đúng chính tả, phải sử dụng từ tiếng Việt có
               dấu.
+            </p>
+            <br />
+            <p className="text-lg text-left">
+              Kết quả được sắp xếp theo ngày đăng.
             </p>
           </div>
         </div>

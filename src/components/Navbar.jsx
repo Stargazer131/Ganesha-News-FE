@@ -31,11 +31,7 @@ const Navbar = () => {
       <div className="px-2 mx-auto sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-between py-1">
           <div className="flex items-center justify-center flex-1 md:items-stretch md:justify-start">
-            <NavLink
-              id="nav_logo"
-              className="flex items-center flex-shrink-0 mr-4"
-              to="/"
-            >
+            <NavLink className="flex items-center flex-shrink-0 mr-4" to="/">
               <img className="w-auto h-14" src={logo} alt="Ganesha News" />
               <span className="hidden ml-2 text-2xl font-bold text-white md:block">
                 Ganesha News
@@ -43,7 +39,7 @@ const Navbar = () => {
             </NavLink>
             <div className="flex flex-wrap items-center md:ml-auto">
               <div className="flex flex-wrap space-x-2">
-                <NavLink key={"home"} to="/" className={linkClassIcon}>
+                <NavLink to="/" className={linkClassIcon}>
                   <FaHome />
                 </NavLink>
                 {Object.entries(categoryMap).map(([key, value]) => (
@@ -55,7 +51,7 @@ const Navbar = () => {
                     {value}
                   </NavLink>
                 ))}
-                <NavLink key={"search"} to="/search" className={linkClassIcon}>
+                <NavLink to="/search" className={linkClassIcon}>
                   <FaSearch />
                 </NavLink>
               </div>

@@ -37,11 +37,11 @@ const ArticleCategoryPage = () => {
     };
 
     fetchArticles();
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [category, pageNumber]);
 
   const handlePageClick = (event) => {
     navigate(`/articles/${category}/${event.selected + 1}`);
-    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   return (
