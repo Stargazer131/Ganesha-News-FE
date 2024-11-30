@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { FaSearch, FaInfoCircle, FaTimes } from "react-icons/fa";
 import ArticleList from "../components/ArticleList";
 import Spinner from "../components/Spinner";
@@ -6,11 +7,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const SearchPage = () => {
-  const [keyword, setKeyword] = useState("");
   const [articles, setArticles] = useState([]);
   const [showInfoPanel, setShowInfoPanel] = useState(false);
   const [loading, setLoading] = useState(false);
   const buttonRef = useRef(null);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const handleInfoClick = () => {
     setShowInfoPanel(true);
@@ -21,8 +23,8 @@ const SearchPage = () => {
   };
 
   const handleSearch = () => {
-    if (keyword.trim() == "") {
-      toast.error("Không được để trống!");
+    const keyword = searchParams.get("keyword");
+    if (keyword == null || keyword.trim() == "") {
       return;
     }
 
@@ -62,6 +64,10 @@ const SearchPage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    handleSearch();
+  }, []);
+
   return (
     <section className="flex flex-col items-center justify-center mt-16 text-center">
       <h1 className="flex items-center justify-between mb-6 text-3xl font-bold text-indigo-500">
@@ -75,8 +81,7 @@ const SearchPage = () => {
       <div className="relative w-full max-w-md mb-2">
         <input
           type="text"
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
+          onChange={(e) => navigate(`/search/?keyword=${e.target.value}`)}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-violet-500"
           placeholder="Từ khóa ..."
         />
