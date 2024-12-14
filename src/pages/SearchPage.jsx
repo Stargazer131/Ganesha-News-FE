@@ -1,18 +1,39 @@
 import { useState, useRef, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaSearch, FaInfoCircle, FaTimes } from "react-icons/fa";
 import ArticleList from "../components/ArticleList";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Pagination from "../components/Pagination";
 
 const SearchPage = () => {
   const [articles, setArticles] = useState([]);
   const [showInfoPanel, setShowInfoPanel] = useState(false);
   const [loading, setLoading] = useState(false);
   const buttonRef = useRef(null);
-  const [searchParams] = useSearchParams();
+
+  const [totalArticlesSearched, setTotalArticlesSearched] = useState(0);
+  const [totalPage, setTotalPage] = useState(20);
+  const numPerPage = 20;
+
+  const location = useLocation();
   const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+  const keyword = queryParams.get("keyword") || " ";
+  const currentPage = Number(queryParams.get("page")) || 1;
+
+  const handleKeywordChange = (value) => {
+    queryParams.set("keyword", value);
+    queryParams.set("page", 1);
+    navigate({ search: queryParams.toString() });
+  };
+
+  const handlePageClick = (event) => {
+    queryParams.set("page", event.selected + 1);
+    navigate({ search: queryParams.toString() });
+    handleSearch(event.selected + 1);
+  };
 
   const handleInfoClick = () => {
     setShowInfoPanel(true);
@@ -22,24 +43,34 @@ const SearchPage = () => {
     setShowInfoPanel(false);
   };
 
-  const handleSearch = () => {
-    const keyword = searchParams.get("keyword");
+  const handleSearch = (pageNum = 0) => {
     if (keyword == null || keyword.trim() == "") {
       return;
     }
 
     setLoading(true);
+    if (pageNum == 0) {
+      pageNum = currentPage;
+    }
+
     const url = `/api/search/`;
-    const params = { keyword, "limit": 50 };
+    const params = {
+      "keyword": keyword.trim(),
+      "limit": numPerPage,
+      "page": pageNum,
+    };
 
     axios
       .get(url, { params })
       .then((res) => {
         const data = res.data;
-        if (data.length == 0) {
+        if (data["total"] == 0) {
           toast.success("Không tìm thấy kết quả nào!");
         }
-        setArticles(data);
+
+        setArticles(data["articles"]);
+        setTotalArticlesSearched(data["total"]);
+        setTotalPage(Math.ceil(data["total"] / numPerPage));
       })
       .catch((error) => {
         console.log("Error fetching data", error);
@@ -81,13 +112,13 @@ const SearchPage = () => {
       <div className="relative w-full max-w-md mb-2">
         <input
           type="text"
-          onChange={(e) => navigate(`/search/?keyword=${e.target.value}`)}
+          onChange={(e) => handleKeywordChange(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-violet-500"
           placeholder="Từ khóa ..."
         />
         <button
           ref={buttonRef}
-          onClick={handleSearch}
+          onClick={() => handleSearch()}
           className="absolute inset-y-0 right-0 flex items-center px-4 text-white bg-violet-500 rounded-r-md hover:bg-violet-600 focus:outline-none focus:ring-1 focus:ring-violet-500"
         >
           <FaSearch className="w-5 h-5" />
@@ -97,13 +128,21 @@ const SearchPage = () => {
       {loading ? (
         <Spinner loading={loading} />
       ) : (
-        articles.length > 0 && (
+        totalArticlesSearched > 0 && (
           <ArticleList
             articles={articles}
-            header={`Tìm thấy ${articles.length} kết quả`}
+            header={`Tìm thấy ${totalArticlesSearched} kết quả`}
             verticalElement={false}
           />
         )
+      )}
+
+      {totalArticlesSearched > 0 && (
+        <Pagination
+          handlePageClick={handlePageClick}
+          maxitem={totalPage}
+          forcePage={currentPage - 1}
+        />
       )}
 
       {showInfoPanel && (
