@@ -20,7 +20,7 @@ const SearchPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
-  const keyword = queryParams.get("keyword") || " ";
+  const keyword = queryParams.get("keyword") || "";
   const currentPage = Number(queryParams.get("page")) || 1;
 
   const handleKeywordChange = (value) => {
@@ -112,6 +112,7 @@ const SearchPage = () => {
       <div className="relative w-full max-w-md mb-2">
         <input
           type="text"
+          value={keyword}
           onChange={(e) => handleKeywordChange(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-violet-500"
           placeholder="Từ khóa ..."

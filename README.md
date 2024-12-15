@@ -1,8 +1,18 @@
-# React + Vite
+<p style="text-align: center;">
+  <img src="src/assets/images/ganesha.png" alt="Alt text" style="display: block; margin: 0 auto;">
+</p>
+<p style="text-align: center; font-weight: bold; font-size: 40px;">Ganesha News</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Home page
+![Logo](images/homepage.png)
 
-Currently, two official plugins are available:
+# Category page
+![Logo](images/category1.png)
+![Logo](images/category2.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Article page
+![Logo](images/article.png)
+![Logo](images/recomendation.png)
+
+# Search page
+![Logo](images/search.png)
