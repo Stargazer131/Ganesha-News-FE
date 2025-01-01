@@ -3,6 +3,7 @@ import ArticleList from "../components/ArticleList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { backendURL } from "../App";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -13,14 +14,11 @@ const HomePage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       setLoading(true);
-      const url = "/api/articles/";
+      const url = `${backendURL}/articles/`;
       const params = { limit: 40 };
-      const headers = {
-        "ngrok-skip-browser-warning": true,
-      };
 
       axios
-        .get(url, { params, headers })
+        .get(url, { params })
         .then((res) => {
           const data = res.data;
           setArticles(data);

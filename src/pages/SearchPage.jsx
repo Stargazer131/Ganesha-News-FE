@@ -6,6 +6,7 @@ import Spinner from "../components/Spinner";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Pagination from "../components/Pagination";
+import { backendURL } from "../App";
 
 const SearchPage = () => {
   const [articles, setArticles] = useState([]);
@@ -67,18 +68,15 @@ const SearchPage = () => {
       pageNum = currentPage;
     }
 
-    const url = `/api/search/`;
+    const url = `${backendURL}/search/`;
     const params = {
       "keyword": keyword.trim(),
       "limit": numPerPage,
       "page": pageNum,
     };
-    const headers = {
-      "ngrok-skip-browser-warning": true,
-    };
 
     axios
-      .get(url, { params, headers })
+      .get(url, { params })
       .then((res) => {
         const data = res.data;
         if (data["total"] == 0) {

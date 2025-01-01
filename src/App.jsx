@@ -12,6 +12,12 @@ import ServerErrorPage from "./pages/ServerErrorPage";
 import ArticlePage from "./pages/ArticlePage";
 import SearchPage from "./pages/SearchPage";
 import HomePage from "./pages/HomePage";
+import axios from "axios";
+
+// const backendURL = "https://recently-profound-crab.ngrok-free.app";
+// axios.defaults.headers.common["ngrok-skip-browser-warning"] = true;
+
+const backendURL = "http://localhost:8000";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -34,4 +40,4 @@ const App = () => {
   return <RouterProvider router={router} />;
 };
 
-export default App;
+export { App as default, backendURL };

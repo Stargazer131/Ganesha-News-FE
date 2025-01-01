@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import { categoryMap } from "../components/Navbar";
+import { backendURL } from "../App";
 
 const ArticleCategoryPage = () => {
   const navigate = useNavigate();
@@ -21,14 +22,11 @@ const ArticleCategoryPage = () => {
       }
 
       setLoading(true);
-      const url = "/api/articles/";
+      const url = `${backendURL}/articles/`;
       const params = { category, page: pageNumber };
-      const headers = {
-        "ngrok-skip-browser-warning": true,
-      };
 
       axios
-        .get(url, { params, headers })
+        .get(url, { params })
         .then((res) => {
           const data = res.data;
           setArticles(data);
