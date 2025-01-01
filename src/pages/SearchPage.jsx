@@ -124,7 +124,7 @@ const SearchPage = () => {
           title="Tìm hiểu thêm về tìm kiếm"
         />
       </h1>
-      <div className="relative w-full max-w-md mb-2">
+      <div className="relative w-full max-w-md px-4 mx-auto mb-2">
         <input
           type="text"
           value={keyword}
@@ -177,7 +177,7 @@ const SearchPage = () => {
             />
             <h1 className="mb-5 text-xl font-bold text-center">Hướng dẫn</h1>
             <p className="text-lg text-left">
-              Sử dụng các từ khóa cho trong tiêu đề hoặc nội dung bài viết để
+              Sử dụng các từ khóa có trong tiêu đề hoặc phần mô tả bài viết để
               tìm kiếm.
             </p>
             <br />
