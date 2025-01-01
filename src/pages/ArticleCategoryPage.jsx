@@ -11,18 +11,24 @@ const ArticleCategoryPage = () => {
   const { category, pageNumber = "1" } = useParams();
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
     const fetchArticles = async () => {
       if (!(category in categoryMap) || Number.isNaN(parseInt(pageNumber))) {
         navigate("/error404");
+        return;
       }
 
+      setLoading(true);
       const url = "/api/articles/";
-      const params = { category, "page": pageNumber };
+      const params = { category, page: pageNumber };
+      const headers = {
+        "ngrok-skip-browser-warning": true,
+      };
 
       axios
-        .get(url, { params })
+        .get(url, { params, headers })
         .then((res) => {
           const data = res.data;
           setArticles(data);
@@ -38,7 +44,20 @@ const ArticleCategoryPage = () => {
 
     fetchArticles();
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [category, pageNumber]);
+  }, [category, pageNumber, navigate]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handlePageClick = (event) => {
     navigate(`/articles/${category}/${event.selected + 1}`);
@@ -51,16 +70,17 @@ const ArticleCategoryPage = () => {
       ) : (
         <ArticleList
           key={`${category}-${pageNumber}`}
-          verticalElement={false}
+          verticalElement={isSmallScreen}
+          hideDescription={!isSmallScreen}
           articles={articles}
-          colNumber={2}
+          colNumber={isSmallScreen ? 1 : 2}
         />
       )}
       <Pagination
         key={String(category)}
         handlePageClick={handlePageClick}
         maxitem={20}
-        forcePage={parseInt(pageNumber - 1)}
+        forcePage={parseInt(pageNumber) - 1}
       />
     </>
   );

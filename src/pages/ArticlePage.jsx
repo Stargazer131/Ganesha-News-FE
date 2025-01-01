@@ -18,9 +18,13 @@ const ArticlePage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       setLoading(true);
-      const url = `/api/articles/${articleId}`;
+      const url = `/api/article/${articleId}`;
+      const headers = {
+        "ngrok-skip-browser-warning": true,
+      };
+
       axios
-        .get(url)
+        .get(url, { headers })
         .then((res) => {
           const data = res.data;
           setArticle(data["article"]);

@@ -21,6 +21,7 @@ const Pagination = ({ handlePageClick, maxitem, forcePage }) => {
       previousLinkClassName={itemStyle}
       nextLinkClassName={itemStyle}
       disabledLinkClassName="hidden"
+      marginPagesDisplayed={1}
     />
   );
 };

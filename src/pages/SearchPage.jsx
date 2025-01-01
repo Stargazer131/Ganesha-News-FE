@@ -12,6 +12,7 @@ const SearchPage = () => {
   const [showInfoPanel, setShowInfoPanel] = useState(false);
   const [loading, setLoading] = useState(false);
   const buttonRef = useRef(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const [totalArticlesSearched, setTotalArticlesSearched] = useState(0);
   const [totalPage, setTotalPage] = useState(20);
@@ -43,6 +44,19 @@ const SearchPage = () => {
     setShowInfoPanel(false);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const handleSearch = (pageNum = 0) => {
     if (keyword == null || keyword.trim() == "") {
       return;
@@ -59,9 +73,12 @@ const SearchPage = () => {
       "limit": numPerPage,
       "page": pageNum,
     };
+    const headers = {
+      "ngrok-skip-browser-warning": true,
+    };
 
     axios
-      .get(url, { params })
+      .get(url, { params, headers })
       .then((res) => {
         const data = res.data;
         if (data["total"] == 0) {
@@ -133,7 +150,8 @@ const SearchPage = () => {
           <ArticleList
             articles={articles}
             header={`Tìm thấy ${totalArticlesSearched} kết quả`}
-            verticalElement={false}
+            verticalElement={isSmallScreen}
+            hideDescription={!isSmallScreen}
           />
         )
       )}

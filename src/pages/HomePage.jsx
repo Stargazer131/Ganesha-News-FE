@@ -8,14 +8,19 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
     const fetchArticles = async () => {
+      setLoading(true);
       const url = "/api/articles/";
-      const params = { "limit": 40 };
+      const params = { limit: 40 };
+      const headers = {
+        "ngrok-skip-browser-warning": true,
+      };
 
       axios
-        .get(url, { params })
+        .get(url, { params, headers })
         .then((res) => {
           const data = res.data;
           setArticles(data);
@@ -32,16 +37,30 @@ const HomePage = () => {
     fetchArticles();
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       {loading ? (
         <Spinner loading={loading} />
       ) : (
         <ArticleList
-          verticalElement={false}
+          verticalElement={isSmallScreen}
+          hideDescription={!isSmallScreen}
           articles={articles}
           header={"Tin mới nhất"}
-          colNumber={2}
+          colNumber={isSmallScreen ? 1 : 2}
         />
       )}
     </>

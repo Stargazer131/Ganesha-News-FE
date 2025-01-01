@@ -6,14 +6,9 @@ const ArticleList = ({
   articles,
   colNumber = 1,
   verticalElement = true,
+  hideDescription = true,
 }) => {
-  const gridColsClass = {
-    1: "md:grid-cols-1",
-    2: "md:grid-cols-2",
-    3: "md:grid-cols-3",
-    4: "md:grid-cols-4",
-    5: "md:grid-cols-5",
-  }[colNumber];
+  const gridColsClass = `md:grid-cols-${colNumber}`;
 
   return (
     <section className="px-4 py-10 bg-blue-50">
@@ -23,13 +18,13 @@ const ArticleList = ({
             {header}
           </h1>
         )}
-        <div className={`grid grid-cols-1 gap-10 ${gridColsClass}`}>
+        <div className={`grid gap-10 ${gridColsClass}`}>
           {verticalElement
             ? articles.map((article) => (
                 <VerticalShortArticle
                   key={article._id}
                   article={article}
-                  hideDescription={true}
+                  hideDescription={hideDescription}
                 />
               ))
             : articles.map((article) => (
