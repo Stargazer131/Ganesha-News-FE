@@ -22,7 +22,7 @@ axios.defaults.headers.common["ngrok-skip-browser-warning"] = true;
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<MainLayout />}>
+      <Route path="/Ganesha-News-FE" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route
           path="/articles/:category/:pageNumber?"
