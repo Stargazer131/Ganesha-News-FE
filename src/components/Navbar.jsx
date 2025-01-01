@@ -41,7 +41,7 @@ const Navbar = () => {
               </span>
             </NavLink>
             <div className="flex items-center md:ml-auto">
-              <div className="flex px-4 space-x-2">
+              <div className="flex px-3 space-x-2">
                 <NavLink to="/" className={linkClassIcon}>
                   <FaHome />
                 </NavLink>

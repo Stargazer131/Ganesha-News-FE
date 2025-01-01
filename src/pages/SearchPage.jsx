@@ -124,18 +124,19 @@ const SearchPage = () => {
           title="Tìm hiểu thêm về tìm kiếm"
         />
       </h1>
-      <div className="relative w-full max-w-md px-4 mx-auto mb-2">
+
+      <div className="flex w-full max-w-md mb-2">
         <input
           type="text"
           value={keyword}
           onChange={(e) => handleKeywordChange(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-violet-500"
+          className="w-full px-4 py-2 ml-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-violet-500"
           placeholder="Từ khóa ..."
         />
         <button
           ref={buttonRef}
           onClick={() => handleSearch()}
-          className="absolute inset-y-0 right-0 flex items-center px-4 text-white bg-violet-500 rounded-r-md hover:bg-violet-600 focus:outline-none focus:ring-1 focus:ring-violet-500"
+          className="flex items-center px-4 ml-1 mr-3 text-white rounded-md bg-violet-500 hover:bg-violet-600 focus:outline-none focus:ring-1 focus:ring-violet-500"
         >
           <FaSearch className="w-5 h-5" />
         </button>
