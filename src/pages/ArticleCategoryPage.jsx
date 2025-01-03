@@ -17,7 +17,7 @@ const ArticleCategoryPage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       if (!(category in categoryMap) || Number.isNaN(parseInt(pageNumber))) {
-        navigate("/error404");
+        navigate("/error/404");
         return;
       }
 
@@ -33,7 +33,7 @@ const ArticleCategoryPage = () => {
         })
         .catch((error) => {
           console.log("Error fetching data:", error);
-          navigate("/error500");
+          navigate(`/error/500`);
         })
         .finally(() => {
           setLoading(false);

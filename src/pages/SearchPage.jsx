@@ -89,7 +89,7 @@ const SearchPage = () => {
       })
       .catch((error) => {
         console.log("Error fetching data", error);
-        navigate("/error500");
+        navigate("/error/500");
       })
       .finally(() => {
         setLoading(false);

@@ -31,9 +31,9 @@ const ArticlePage = () => {
         .catch((error) => {
           console.log("Error fetching data", error);
           if (error.response.status == 404) {
-            navigate("/error404");
+            navigate("/error/404");
           } else {
-            navigate("/error500");
+            navigate("/error/500");
           }
         })
         .finally(() => {

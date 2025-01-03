@@ -7,8 +7,7 @@ import {
 
 import ArticleCategoryPage from "./pages/ArticleCategoryPage";
 import MainLayout from "./layouts/MainLayout";
-import NotFoundPage from "./pages/NotFoundPage";
-import ServerErrorPage from "./pages/ServerErrorPage";
+import ErrorPage from "./pages/ErrorPage";
 import ArticlePage from "./pages/ArticlePage";
 import SearchPage from "./pages/SearchPage";
 import HomePage from "./pages/HomePage";
@@ -30,9 +29,8 @@ const App = () => {
         />
         <Route path="article/:articleId" element={<ArticlePage />} />
         <Route path="search" element={<SearchPage />} />
-        <Route path="error404" element={<NotFoundPage />} />
-        <Route path="error500" element={<ServerErrorPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="error/:errorCode" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Route>
     ),
     { basename: "/Ganesha-News-FE" }
