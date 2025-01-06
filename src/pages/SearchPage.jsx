@@ -145,22 +145,23 @@ const SearchPage = () => {
       {loading ? (
         <Spinner loading={loading} />
       ) : (
-        totalArticlesSearched > 0 && (
-          <ArticleList
-            articles={articles}
-            header={`Tìm thấy ${totalArticlesSearched} kết quả`}
-            verticalElement={isSmallScreen}
-            hideDescription={!isSmallScreen}
-          />
-        )
-      )}
-
-      {totalArticlesSearched > 0 && (
-        <Pagination
-          handlePageClick={handlePageClick}
-          maxitem={totalPage}
-          forcePage={currentPage - 1}
-        />
+        <>
+          {totalArticlesSearched > 0 && (
+            <>
+              <ArticleList
+                articles={articles}
+                header={`Tìm thấy ${totalArticlesSearched} kết quả`}
+                verticalElement={isSmallScreen}
+                hideDescription={!isSmallScreen}
+              />
+              <Pagination
+                handlePageClick={handlePageClick}
+                maxitem={totalPage}
+                forcePage={currentPage - 1}
+              />
+            </>
+          )}
+        </>
       )}
 
       {showInfoPanel && (
