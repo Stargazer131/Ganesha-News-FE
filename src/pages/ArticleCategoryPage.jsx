@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import { categoryMap } from "../components/Navbar";
-import { backendURL } from "../App";
 
 const ArticleCategoryPage = () => {
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ const ArticleCategoryPage = () => {
       }
 
       setLoading(true);
-      const url = `${backendURL}/articles/`;
+      const url = `/articles/`;
       const params = { category, page: pageNumber };
 
       axios

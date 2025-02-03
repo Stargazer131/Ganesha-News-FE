@@ -7,7 +7,6 @@ import ArticleList from "../components/ArticleList";
 import axios from "axios";
 import ImageCaption from "../components/ImageCaption";
 import ImageGrid from "../components/ImageGrid";
-import { backendURL } from "../App";
 
 const ArticlePage = () => {
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ const ArticlePage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       setLoading(true);
-      const url = `${backendURL}/article/${articleId}`;
+      const url = `/article/${articleId}`;
 
       axios
         .get(url)

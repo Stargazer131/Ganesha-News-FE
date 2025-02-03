@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { FaHome, FaSearch } from "react-icons/fa";
 import logo from "../assets/images/ganesha.png";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Switch } from "antd";
 
 const categoryMap = {
   "thoi-su": "Thời sự",
@@ -16,6 +19,21 @@ const categoryMap = {
 };
 
 const Navbar = () => {
+  const url1 = "https://recently-profound-crab.ngrok-free.app";
+  const url2 = "https://ganesha-cloud.onrender.com";
+  const [url, setUrl] = useState(url1);
+
+  const toggleUrl = () => {
+    setUrl((prevURL) => (prevURL === url1 ? url2 : url1));
+  };
+
+  axios.defaults.baseURL = url;
+  axios.defaults.headers.common["ngrok-skip-browser-warning"] = true;
+
+  useEffect(() => {
+    axios.defaults.baseURL = url;
+  }, [url]);
+
   const linkClassCategory = ({ isActive }) =>
     `text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 whitespace-nowrap text-sm ${
       isActive ? "bg-black" : ""
@@ -57,6 +75,12 @@ const Navbar = () => {
                 <NavLink to="/search" className={linkClassIcon}>
                   <FaSearch />
                 </NavLink>
+                <Switch
+                  onClick={toggleUrl}
+                  checkedChildren="Full"
+                  unCheckedChildren="Demo"
+                  defaultChecked
+                />
               </div>
             </div>
           </div>
