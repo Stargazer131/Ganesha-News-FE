@@ -22,7 +22,7 @@ const Navbar = () => {
   const url1 = "https://recently-profound-crab.ngrok-free.app";
   const url2 = "https://ganesha-news-cloud-production.up.railway.app";
   const url3 = "https://ganesha-cloud.onrender.com";
-  const [url, setUrl] = useState(url1);
+  const [url, setUrl] = useState(url2);
 
   const toggleUrl = () => {
     setUrl((prevURL) => (prevURL === url1 ? url2 : url1));
@@ -80,7 +80,6 @@ const Navbar = () => {
                   onClick={toggleUrl}
                   checkedChildren="Full"
                   unCheckedChildren="Demo"
-                  defaultChecked
                 />
               </div>
             </div>
