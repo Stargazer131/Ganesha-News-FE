@@ -21,7 +21,7 @@ const ArticleCategoryPage = () => {
       }
 
       setLoading(true);
-      const url = `/articles/`;
+      const url = `/articles`;
       const params = { category, page: pageNumber };
 
       axios

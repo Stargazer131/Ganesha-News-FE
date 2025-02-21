@@ -13,7 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       setLoading(true);
-      const url = `/articles/`;
+      const url = `/articles`;
       const params = { limit: 40 };
 
       axios

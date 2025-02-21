@@ -67,7 +67,7 @@ const SearchPage = () => {
       pageNum = currentPage;
     }
 
-    const url = `/search/`;
+    const url = `/search`;
     const params = {
       "keyword": keyword.trim(),
       "limit": numPerPage,
