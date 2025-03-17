@@ -19,9 +19,11 @@ const categoryMap = {
 };
 
 const Navbar = () => {
+  const url3 = "http://localhost:8000";
+  const url4 = "https://ganesha-news-cloud-production.up.railway.app";
+
   const url1 = "https://recently-profound-crab.ngrok-free.app";
-  const url2 = "https://ganesha-news-cloud-production.up.railway.app";
-  const url3 = "http://18.141.200.89"; // AWS EC2
+  const url2 = "https://stargazerapp.site";
   const [url, setUrl] = useState(url2);
 
   const toggleUrl = () => {
